@@ -1,0 +1,2 @@
+hdfs://localhost:9000/user/oskar/input/text - spark args
+input/text 
