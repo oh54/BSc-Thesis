@@ -1,2 +1,6 @@
 hdfs://localhost:9000/user/oskar/input/text - spark args
+-Dspark.master=local                        - VM args
 input/text 
+/user/oskar/input/sar
+
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/input input
