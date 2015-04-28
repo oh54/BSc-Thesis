@@ -1,23 +1,42 @@
 package test.thesis;
 
+import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
+
 import org.apache.hadoop.io.Writable;
 
-public class ImageWritable implements Writable {
-
-	@Override
-	public void readFields(DataInput in) throws IOException {
-		// TODO Auto-generated method stub
-		//javax.imageio.ImageIO.read(in);
+public class ImageWritable implements Writable{
+	private BufferedImage img;
+	
+	public ImageWritable(BufferedImage img) {
+		this.img = img;
+	}
+	public ImageWritable() {
 	}
 
 	@Override
-	public void write(DataOutput arg0) throws IOException {
-		// TODO Auto-generated method stub
+	public void readFields(DataInput in) throws IOException {
+		ImageInputStream iis = javax.imageio.ImageIO.createImageInputStream(in);
+		img = ImageIO.read(iis);
+	}
 
+	@Override
+	public void write(DataOutput out) throws IOException {
+		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(out);
+		ImageIO.write(img, "tif", ios);
+	}
+	public Integer getHeight(){
+		return img.getHeight();
+	}
+
+	public BufferedImage getImg(){
+		return img;
 	}
 
 }

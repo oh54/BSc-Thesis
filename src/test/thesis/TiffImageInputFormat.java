@@ -1,43 +1,28 @@
 package test.thesis;
 
-import java.io.IOException;
-
+import org.apache.avro.mapred.SequenceFileInputFormat;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.InputFormat;
-import org.apache.hadoop.mapred.InputSplit;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.RecordReader;
-import org.apache.hadoop.mapred.Reporter;
 
-public class TiffImageInputFormat<K, V> implements InputFormat<Text, ImageWritable> {
+public class TiffImageInputFormat<K, V> extends
+		SequenceFileInputFormat<Text, ImageWritable> {
+
 
 	@Override
-	public RecordReader<Text, ImageWritable> getRecordReader(InputSplit arg0, JobConf arg1,
-			Reporter arg2) throws IOException {
+	protected boolean isSplitable(FileSystem fs, Path filename) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
-
-	@Override
-	public InputSplit[] getSplits(JobConf arg0, int arg1) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
 
 /*
-public class ImageInputFormat extends FileInputFormat<Text, ImageWritable> {
-
-    @Override
-    public ImageRecordReader createRecordReader(InputSplit split, 
-                  TaskAttemptContext context) throws IOException, InterruptedException {
-        return new ImageRecordReader();
-    }
-
-    @Override
-    protected boolean isSplitable(JobContext context, Path filename) {
-        return false;
-    }
-}  
-*/
+ * public class ImageInputFormat extends FileInputFormat<Text, ImageWritable> {
+ * 
+ * @Override public ImageRecordReader createRecordReader(InputSplit split,
+ * TaskAttemptContext context) throws IOException, InterruptedException { return
+ * new ImageRecordReader(); }
+ * 
+ * @Override protected boolean isSplitable(JobContext context, Path filename) {
+ * return false; } }
+ */

@@ -1,12 +1,11 @@
 package test.thesis;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URL;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.hadoop.io.Text;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -30,36 +29,68 @@ public class TiffTestSpark {
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		String inputFolder = args[0];
 
+		Class<TiffImageInputFormat> format = TiffImageInputFormat.class;
+		Class<Text> key = Text.class;
+		Class<ImageWritable> value = ImageWritable.class;
+
+		/*
+		 * JavaPairRDD<Text, ImageWritable> imgs = sc.hadoopFile(inputFolder,
+		 * format, key, value);
+		 */
+
 		// FileSystem localfs = FileSystem.getLocal(conf);
 		// FileSystem hdfs = FileSystem.get(conf);
 
 		// sc.hadoopFile(path, inputFormatClass, keyClass, valueClass);
 
+		// sc.hadoopFile(path, inputFormatClass, keyClass, valueClass);
+
 		JavaPairRDD<String, PortableDataStream> input = sc
 				.binaryFiles(inputFolder);
-		//JavaRDD<String> paths = input.map(tuple -> new String(tuple._1.substring(7)));
+		 JavaRDD<String> paths = input.map(tuple -> new String(tuple._1));
 
-		JavaPairRDD<String, BufferedImage> imgs = input.mapToPair(t -> {
-			return new Tuple2(t._1, ImageIO.read(t._2.open()));
-		});
 
-		//JavaPairRDD<String, Integer> heights = imgs.mapToPair(t -> new Tuple2(
-		//		t._1, t._2.getHeight()));
-
-		
+		 JavaPairRDD<Text, ImageWritable> imgs = input.mapToPair(t -> {
+			 return new Tuple2(new Text(t._1), new ImageWritable(ImageIO.read(t._2.open()))); 
+		 });
+		 
+		 
+	
+		/*
+		 * JavaPairRDD<String, Integer> heights = imgs.mapToPair(t -> new
+		 * Tuple2( t._1, t._2.getHeight()));
+		 */
+		 /*
+		JavaRDD<String> strings = imgs.map(t -> t._2.getStr());
+		List<String> stringsList = strings.collect();
+		for (String str : stringsList) {
+			System.out.println(str);
+		}
+		System.out.println(strings.count());
+		*/
+		 /*
 		JavaRDD<Integer> heights = imgs.map(t -> t._2.getHeight());
+
 		List<Integer> heghtsList = heights.collect();
-		for (Integer height : heghtsList){
+		for (Integer height : heghtsList) {
 			System.out.println(height);
 		}
-		
 
-		/*
-		List<String> pathsList = paths.collect();
-		for (String path : pathsList) {
-			System.out.println(path);
-		}
 		*/
+		String path = "hdfs://localhost:9000/user/oskar/output";
+		//imgs.saveAsHadoopFile(path, Text.class, ImageWritable.class, TiffImageOutputFormat.class);
+
+		//imgs.saveAsHadoopFile(path, Text.class, ImageWritable.class, TiffImageOutputFormat.class);õ
+
+		
+		imgs.saveAsHadoopFile(path, key, value, TiffImageOutputFormat.class);
+		
+		//imgs.saveAsNewAPIHadoopFile(path, Text.class, IntWritable.class,  SequenceFileOutputFormat.class);
+	
+		/*
+		 * List<String> pathsList = paths.collect(); for (String path :
+		 * pathsList) { System.out.println(path); }
+		 */
 		// BufferedImage tiffImg = ImageIO.read(new
 		// File("input/sar/sarpic.tif"));
 
