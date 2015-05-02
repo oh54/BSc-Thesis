@@ -1,8 +1,5 @@
 package test.thesis;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import javax.imageio.ImageIO;
 
 import org.apache.hadoop.io.Text;
@@ -45,8 +42,7 @@ public class TiffTestSpark {
 
 		// sc.hadoopFile(path, inputFormatClass, keyClass, valueClass);
 
-		JavaPairRDD<String, PortableDataStream> input = sc
-				.binaryFiles(inputFolder);
+		JavaPairRDD<String, PortableDataStream> input = sc.binaryFiles(inputFolder);
 		 JavaRDD<String> paths = input.map(tuple -> new String(tuple._1));
 
 

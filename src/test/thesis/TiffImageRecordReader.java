@@ -3,15 +3,17 @@ package test.thesis;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.InputSplit;
+import org.apache.hadoop.mapred.FileSplit;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 
 public class TiffImageRecordReader implements RecordReader<Text, ImageWritable> {
 
-	public TiffImageRecordReader(JobConf job, InputSplit input)
+	public TiffImageRecordReader(JobConf job, FileSplit input)
 			throws IOException {
 	}
+
+
 
 	@Override
 	public void close() throws IOException {

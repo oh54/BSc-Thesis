@@ -3,4 +3,9 @@ hdfs://localhost:9000/user/oskar/input/text - spark args
 input/text 
 /user/oskar/input/sar
 
-bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/input input
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/input/sar input
+
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output input
+
+bin/hdfs dfs -rm -r /user/oskar/input/sar
+rm -rf your_directory/*

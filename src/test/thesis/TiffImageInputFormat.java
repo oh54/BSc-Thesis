@@ -1,19 +1,26 @@
 package test.thesis;
 
-import org.apache.avro.mapred.SequenceFileInputFormat;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
+import java.io.IOException;
+
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.InputSplit;
+import org.apache.hadoop.mapred.JobConf;
+import org.apache.hadoop.mapred.RecordReader;
+import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.mapred.lib.CombineFileInputFormat;
 
-public class TiffImageInputFormat<K, V> extends
-		SequenceFileInputFormat<Text, ImageWritable> {
 
+public class TiffImageInputFormat<K, V> extends CombineFileInputFormat<Text, ImageWritable> {
 
 	@Override
-	protected boolean isSplitable(FileSystem fs, Path filename) {
+	public RecordReader<Text, ImageWritable> getRecordReader(InputSplit arg0, JobConf arg1, Reporter arg2) throws IOException {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
+
+
+
 }
 
 /*
