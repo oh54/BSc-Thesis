@@ -11,7 +11,7 @@ public class TiffImageInputSplit implements InputSplit{
 	ImageWritable imgSplit;
 	
 	public TiffImageInputSplit() {
-		new File
+		//new Filespl
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ public class TiffImageInputSplit implements InputSplit{
 
 	@Override
 	public String[] getLocations() throws IOException {
-		imgSplit.getImg().get
+		//imgSplit.getImg().get
 		return null;
 	}
 	
