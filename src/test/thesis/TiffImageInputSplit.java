@@ -4,11 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
 import org.apache.hadoop.mapred.InputSplit;
+
+import cluster.hdfs.TiffImageWritable;
 
 public class TiffImageInputSplit implements InputSplit{
 
-	ImageWritable imgSplit;
+	TiffImageWritable imgSplit;
 	
 	public TiffImageInputSplit() {
 		//new Filespl
@@ -16,7 +19,7 @@ public class TiffImageInputSplit implements InputSplit{
 	
 	@Override
 	public void readFields(DataInput in) throws IOException {
-		imgSplit = new ImageWritable();
+		imgSplit = new TiffImageWritable();
 		imgSplit.readFields(in);
 	}
 

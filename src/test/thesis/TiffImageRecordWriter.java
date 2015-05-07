@@ -2,12 +2,16 @@ package test.thesis;
 
 
 import java.io.IOException;
+
 import javax.imageio.stream.ImageOutputStream;
+
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.RecordWriter;
 import org.apache.hadoop.mapred.Reporter;
 
-public class TiffImageRecordWriter implements RecordWriter<Text, ImageWritable> {
+import cluster.hdfs.TiffImageWritable;
+
+public class TiffImageRecordWriter implements RecordWriter<Text, TiffImageWritable> {
 
 	private ImageOutputStream out;
 
@@ -21,7 +25,7 @@ public class TiffImageRecordWriter implements RecordWriter<Text, ImageWritable> 
 	}
 
 	@Override
-	public void write(Text key, ImageWritable value) throws IOException {
+	public void write(Text key, TiffImageWritable value) throws IOException {
 		javax.imageio.ImageIO.write(value.getImg(), "tif", out);
 	}
 

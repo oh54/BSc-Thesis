@@ -1,4 +1,4 @@
-package test.thesis;
+package cluster.hdfs;
 
 import java.awt.image.BufferedImage;
 import java.io.DataInput;
@@ -11,13 +11,13 @@ import javax.imageio.stream.ImageOutputStream;
 
 import org.apache.hadoop.io.Writable;
 
-public class ImageWritable implements Writable{
+public class TiffImageWritable implements Writable{
 	private BufferedImage img;
 	
-	public ImageWritable(BufferedImage img) {
+	public TiffImageWritable(BufferedImage img) {
 		this.img = img;
 	}
-	public ImageWritable() {
+	public TiffImageWritable() {
 	}
 
 	@Override

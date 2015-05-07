@@ -9,11 +9,13 @@ import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 import org.apache.hadoop.mapred.lib.CombineFileInputFormat;
 
+import cluster.hdfs.TiffImageWritable;
 
-public class TiffImageInputFormat<K, V> extends CombineFileInputFormat<Text, ImageWritable> {
+
+public class TiffImageInputFormat<K, V> extends CombineFileInputFormat<Text, TiffImageWritable> {
 
 	@Override
-	public RecordReader<Text, ImageWritable> getRecordReader(InputSplit arg0, JobConf arg1, Reporter arg2) throws IOException {
+	public RecordReader<Text, TiffImageWritable> getRecordReader(InputSplit arg0, JobConf arg1, Reporter arg2) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -23,13 +25,3 @@ public class TiffImageInputFormat<K, V> extends CombineFileInputFormat<Text, Ima
 
 }
 
-/*
- * public class ImageInputFormat extends FileInputFormat<Text, ImageWritable> {
- * 
- * @Override public ImageRecordReader createRecordReader(InputSplit split,
- * TaskAttemptContext context) throws IOException, InterruptedException { return
- * new ImageRecordReader(); }
- * 
- * @Override protected boolean isSplitable(JobContext context, Path filename) {
- * return false; } }
- */

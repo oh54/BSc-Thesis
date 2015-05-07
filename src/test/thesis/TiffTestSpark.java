@@ -9,11 +9,13 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.input.PortableDataStream;
 
+import cluster.hdfs.TiffImageWritable;
+import cluster.hdfs.TiffImageOutputFormat;
 import scala.Tuple2;
 
 public class TiffTestSpark {
 
-	public static <R> void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
 		String appName = "TiffTestSpark";
 
@@ -28,7 +30,7 @@ public class TiffTestSpark {
 
 		Class<TiffImageInputFormat> format = TiffImageInputFormat.class;
 		Class<Text> key = Text.class;
-		Class<ImageWritable> value = ImageWritable.class;
+		Class<TiffImageWritable> value = TiffImageWritable.class;
 
 		/*
 		 * JavaPairRDD<Text, ImageWritable> imgs = sc.hadoopFile(inputFolder,
@@ -46,8 +48,8 @@ public class TiffTestSpark {
 		 JavaRDD<String> paths = input.map(tuple -> new String(tuple._1));
 
 
-		 JavaPairRDD<Text, ImageWritable> imgs = input.mapToPair(t -> {
-			 return new Tuple2(new Text(t._1), new ImageWritable(ImageIO.read(t._2.open()))); 
+		 JavaPairRDD<Text, TiffImageWritable> imgs = input.mapToPair(t -> {
+			 return new Tuple2(new Text(t._1), new TiffImageWritable(ImageIO.read(t._2.open()))); 
 		 });
 		 
 		 

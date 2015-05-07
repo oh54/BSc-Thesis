@@ -12,13 +12,12 @@ import javax.imageio.ImageIO;
 
 public class NoiseReductionTest {
 	public static void main(String[] args) throws IOException {
-		String inputFolder = "/home/oskar/workspace/BSc-Thesis/output/";
-		String imgName = "split1.tiff";
+		//String inputFolder = "/home/oskar/workspace/BSc-Thesis/output/";
+		//String imgName = "split1.tiff";
 
-		// String fileName =
-		// "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
+		//String fileName = "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
 
-		//String fileName = inputFolder + imgName;
+		//String fileName = "/home/oskar/workspace/BSc-Thesis/output/hdfs/0_0_s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
 		
 		String fileName = "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
 
@@ -27,24 +26,6 @@ public class NoiseReductionTest {
 		int wr = 1;
 		int origWidth = origImg.getWidth();
 		int origHeight = origImg.getHeight();
-
-		
-
-		/*
-		 * BufferedImage processedImg = new BufferedImage(origWidth - wr,
-		 * origHeight - hr, BufferedImage.TYPE_USHORT_GRAY); Graphics2D gr =
-		 * processedImg.createGraphics(); gr.drawImage(origImg, 0, 0, origWidth
-		 * - hr, origHeight - hr, wr, hr, origWidth - wr, origHeight - hr,
-		 * null); gr.dispose();
-		 */
-		// gr.drawImage(origImg, 0, 0, width, height, 0, 0, width, height,
-		// null);
-
-		//BufferedImage window = origImg.getSubimage(36 - wr, 1981 - hr, 2 * wr + 1, 2 * hr + 1);
-
-		
-		//getMedian(wr, hr, origImg.getSubimage(50, 50, 2 * wr + 1, 2 * hr + 1));
-		
 		
 		BufferedImage processedImg = deepCopy(origImg);
 		
@@ -65,7 +46,7 @@ public class NoiseReductionTest {
 			
 		}
 
-		File outputFile = new File("/home/oskar/workspace/BSc-Thesis/output/REDUCED_" + "LARGE2");
+		File outputFile = new File("/home/oskar/workspace/BSc-Thesis/output/noise_test.tiff");
 
 		ImageIO.write(processedImg, "tiff", outputFile);
 		

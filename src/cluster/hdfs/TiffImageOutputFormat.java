@@ -1,4 +1,4 @@
-package test.thesis;
+package cluster.hdfs;
 
 import java.io.IOException;
 
@@ -13,16 +13,16 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordWriter;
 import org.apache.hadoop.util.Progressable;
 
+import test.thesis.TiffImageRecordWriter;
 
-public class TiffImageOutputFormat extends FileOutputFormat {
 
+public class TiffImageOutputFormat  extends FileOutputFormat<Text, TiffImageWritable>{
 
 
 	@Override
-	public RecordWriter<Text, ImageWritable> getRecordWriter(FileSystem fs, JobConf job,
+	public RecordWriter<Text, TiffImageWritable> getRecordWriter(FileSystem fs, JobConf job,
 			String name, Progressable progress) throws IOException {
 		Path file = FileOutputFormat.getTaskOutputPath(job, name);
-		//FileSystem fs = file.getFileSystem(job);
 		FSDataOutputStream fileOut = fs.create(file, progress);
 		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(fileOut);
 	    return new TiffImageRecordWriter(ios);

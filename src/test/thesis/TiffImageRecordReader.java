@@ -7,7 +7,9 @@ import org.apache.hadoop.mapred.FileSplit;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 
-public class TiffImageRecordReader implements RecordReader<Text, ImageWritable> {
+import cluster.hdfs.TiffImageWritable;
+
+public class TiffImageRecordReader implements RecordReader<Text, TiffImageWritable> {
 
 	public TiffImageRecordReader(JobConf job, FileSplit input)
 			throws IOException {
@@ -25,8 +27,8 @@ public class TiffImageRecordReader implements RecordReader<Text, ImageWritable> 
 	}
 
 	@Override
-	public ImageWritable createValue() {
-		return new ImageWritable();
+	public TiffImageWritable createValue() {
+		return new TiffImageWritable();
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class TiffImageRecordReader implements RecordReader<Text, ImageWritable> 
 	}
 
 	@Override
-	public boolean next(Text arg0, ImageWritable arg1) throws IOException {
+	public boolean next(Text arg0, TiffImageWritable arg1) throws IOException {
 		return false;
 	}
 
