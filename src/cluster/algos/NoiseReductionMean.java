@@ -8,6 +8,9 @@ import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -15,8 +18,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.input.PortableDataStream;
 
 import scala.Tuple2;
-import cluster.hdfs.TiffImageWritable;
 import cluster.hdfs.TiffImageOutputFormat;
+import cluster.hdfs.TiffImageWritable;
+
 
 public class NoiseReductionMean {
 
@@ -56,15 +60,21 @@ public class NoiseReductionMean {
 			}
 			return new Tuple2(new Text(t._1), new TiffImageWritable(processedImg));
 		});
-
-		/*
-		 * input.mapPartitionsToPair(iter -> { BufferedImage img =
-		 * ImageIO.read(iter.next()._2.open()); return new Iterator //return new
-		 * Tuple2(new Text(t._1), new ImageWritable(img)); }, true);
-		 */
+		
+		
 
 		imgs.saveAsHadoopFile(outputFolderPath, keyClass, valueClass, TiffImageOutputFormat.class);
-
+		/*
+		FileSystem fs= FileSystem.get(sc.hadoopConfiguration());
+		imgs.foreach(t ->{
+			Path p = new Path(t._1.toString());
+			FSDataOutputStream stream = fs.create(p);
+			
+			t._2.write(stream);
+			
+		});
+		*/
+		
 		sc.stop();
 	}
 

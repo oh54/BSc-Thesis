@@ -4,23 +4,20 @@ import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.apache.hadoop.io.ObjectWritable;
 import org.apache.hadoop.io.Writable;
-import org.apache.spark.input.Configurable;
 
-public class TiffImageWritable implements Writable{
+public class PngImageWritable implements Writable{
 	private BufferedImage img;
 	
-	public TiffImageWritable(BufferedImage img) {
+	public PngImageWritable(BufferedImage img) {
 		this.img = img;
 	}
-	public TiffImageWritable() {
+	public PngImageWritable() {
 	}
 
 	@Override
@@ -32,7 +29,7 @@ public class TiffImageWritable implements Writable{
 	@Override
 	public void write(DataOutput out) throws IOException {
 		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(out);
-		ImageIO.write(img, "tif", ios);
+		ImageIO.write(img, "png", ios);
 	}
 	public Integer getHeight(){
 		return img.getHeight();

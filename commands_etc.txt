@@ -7,6 +7,7 @@ bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/input/sar input
 
 bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output input
 
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs2 input
 bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs input
 
 bin/hdfs dfs -rm -r /user/oskar/input/sar

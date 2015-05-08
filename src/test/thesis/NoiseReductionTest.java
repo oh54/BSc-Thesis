@@ -22,8 +22,8 @@ public class NoiseReductionTest {
 		String fileName = "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
 
 		BufferedImage origImg = ImageIO.read(new File(fileName));
-		int hr = 1;
-		int wr = 1;
+		int hr = 10;
+		int wr = 10;
 		int origWidth = origImg.getWidth();
 		int origHeight = origImg.getHeight();
 		
@@ -46,7 +46,7 @@ public class NoiseReductionTest {
 			
 		}
 
-		File outputFile = new File("/home/oskar/workspace/BSc-Thesis/output/noise_test.tiff");
+		File outputFile = new File("/home/oskar/workspace/BSc-Thesis/output/noise_10LARGE.tiff");
 
 		ImageIO.write(processedImg, "tiff", outputFile);
 		

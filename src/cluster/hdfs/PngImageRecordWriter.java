@@ -1,5 +1,4 @@
-package test.thesis;
-
+package cluster.hdfs;
 
 import java.io.IOException;
 
@@ -9,13 +8,11 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.RecordWriter;
 import org.apache.hadoop.mapred.Reporter;
 
-import cluster.hdfs.TiffImageWritable;
-
-public class TiffImageRecordWriter implements RecordWriter<Text, TiffImageWritable> {
+public class PngImageRecordWriter implements RecordWriter<Text, PngImageWritable> {
 
 	private ImageOutputStream out;
 
-	public TiffImageRecordWriter(ImageOutputStream out) throws IOException {
+	public PngImageRecordWriter(ImageOutputStream out) throws IOException {
 		this.out = out;
 	}
 
@@ -25,8 +22,8 @@ public class TiffImageRecordWriter implements RecordWriter<Text, TiffImageWritab
 	}
 
 	@Override
-	public void write(Text key, TiffImageWritable value) throws IOException {
-		javax.imageio.ImageIO.write(value.getImg(), "tif", out);
+	public void write(Text key, PngImageWritable value) throws IOException {
+		javax.imageio.ImageIO.write(value.getImg(), "png", out);
 	}
 
 }
