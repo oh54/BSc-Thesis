@@ -23,68 +23,41 @@ public class ChangeDetectionRGB {
 
 	public static void main(String[] args) throws Exception {
 		String appName = "SparkChangeDetectionRGB";
-		if (args.length < 2) {
-			System.err.println("Usage: " + appName + " <inputfolder> <outputfolder>");
+		if (args.length < 3) {
+			System.err.println("Usage: " + appName + " <inputfolder1> <inputfolder1> <outputfolder>");
 			System.exit(1);
 		}
-		SparkConf conf = new SparkConf().setAppName(appName).setMaster("local");
+		// .setMaster("local")
+		SparkConf conf = new SparkConf().setAppName(appName);
 		JavaSparkContext sc = new JavaSparkContext(conf);
 
-		String inputFolderPath = args[0];
-		String outputFolderPath = args[1];
+		String inputFolderPath1 = args[0];
+		String inputFolderPath2 = args[1];
+		String outputFolderPath = args[2];
 
-		JavaPairRDD<String, PortableDataStream> allInputFiles = sc.binaryFiles(inputFolderPath, 16);
+		JavaPairRDD<String, PortableDataStream> files1 = sc.binaryFiles(inputFolderPath1, 16);
 
-		JavaRDD<String> paths = allInputFiles.map(tuple -> new String(tuple._1));
-		List<String> pathsList = paths.collect();
-		
-		String fstFileName = getFileName(pathsList.get(0));
+		JavaPairRDD<String, PortableDataStream> files2 = sc.binaryFiles(inputFolderPath2, 16);
 
-
-		//System.out.println(Arrays.toString(pathsList.toArray()));
-
-		JavaPairRDD<Text, TiffImageWritable> imgs = allInputFiles.mapToPair(t -> {
-			BufferedImage origImg = ImageIO.read(t._2.open());
-			return new Tuple2(new Text(t._1), new TiffImageWritable(origImg));
-		});
-
-		JavaPairRDD<Text, TiffImageWritable> imgs1 = imgs.filter(t -> {
-			return getFileName(t._1.toString()).equals(fstFileName);
+		JavaPairRDD<String, PortableDataStream> data1 = files1.mapToPair(t -> {
+			String[] tokens = t._1.split("/");;
+			String fileName = tokens[tokens.length - 1];
+			//BufferedImage origImg = ImageIO.read(t._2.open());
+			return new Tuple2(fileName, t._2);
 		});
 		
-
-		JavaPairRDD<Text, TiffImageWritable> imgs2 = imgs.filter(t -> {
-			return !getFileName(t._1.toString()).equals(fstFileName);
+		JavaPairRDD<String, PortableDataStream> data2 = files2.mapToPair(t -> {
+			String[] tokens = t._1.split("/");;
+			String fileName = tokens[tokens.length - 1];
+			//BufferedImage origImg = ImageIO.read(t._2.open());
+			return new Tuple2(fileName, t._2);
 		});
-		
-		/*
-		JavaPairRDD<Text, TiffImageWritable> imgs1Names = imgs1.mapToPair(t -> {
-			return new Tuple2<Text, TiffImageWritable>(new Text(getFileLocationOnImage(t._1.toString())), t._2);
-		});
-		
-		JavaPairRDD<Text, TiffImageWritable> imgs2Names = imgs1.mapToPair(t -> {
-			return new Tuple2<Text, TiffImageWritable>(new Text(getFileLocationOnImage(t._1.toString())), t._2);
-		});
-		*/
-		JavaPairRDD<String, TiffImageWritable> imgs1Names = imgs1.mapToPair(t -> {
-			return new Tuple2("1", t._2);
+				
+		JavaPairRDD<String, Tuple2<PortableDataStream, PortableDataStream>> joinedData = data1.join(data2);
 
-		});
-		
-		JavaPairRDD<String, TiffImageWritable> imgs2Names = imgs1.mapToPair(t -> {
-			return new Tuple2("1", t._2);
-			//return new Tuple2(new Text(t._1), new TiffImageWritable(processedImg));
-
-		});
-		
-		
-		JavaPairRDD<String, Tuple2<TiffImageWritable, TiffImageWritable>> joinedImgs = imgs1Names.join(imgs1Names);
-
-		
-
-		JavaPairRDD<Text, PngImageWritable> proccessedImgs = joinedImgs.mapToPair(t -> {
-			BufferedImage img1 = t._2._1.getImg();
-			BufferedImage img2 = t._2._2.getImg();
+		JavaPairRDD<Text, PngImageWritable> proccessedImgs = joinedData.mapToPair(t -> {
+			BufferedImage img1 = ImageIO.read(t._2._1.open());
+			BufferedImage img2 = ImageIO.read(t._2._2.open());
 			
 			BufferedImage processedImg = new BufferedImage(img1.getWidth(), img1.getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -100,7 +73,6 @@ public class ChangeDetectionRGB {
 		});
 		
 		proccessedImgs.saveAsHadoopFile(outputFolderPath, Text.class, PngImageWritable.class, PngImageOutputFormat.class);
-		//imgs1.saveAsHadoopFile(outputFolderPath, Text.class, TiffImageWritable.class, TiffImageOutputFormat.class);
 		sc.stop();
 	}
 

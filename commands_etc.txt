@@ -13,3 +13,13 @@ bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs input
 bin/hdfs dfs -rm -r /user/oskar/input/sar
 bin/hdfs dfs -rm -r /user/oskar/output
 rm -rf your_directory/*
+
+
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs2/fold1 input/fst
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs2/fold2 input/snd
+
+
+scp /home/oskar/workspace/BSc-Thesis/output/hdfs/0_0_s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff root@ec2-54-82-19-63.compute-1.amazonaws.com:
+
+
+scp -r /home/oskar/workspace/BSc-Thesis/output/hdfs root@ec2-54-82-19-63.compute-1.amazonaws.com:input

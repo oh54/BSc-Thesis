@@ -11,13 +11,12 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordWriter;
-import org.apache.hadoop.mapred.lib.MultipleOutputFormat;
 import org.apache.hadoop.util.Progressable;
 
 
-public class TiffImageOutputFormat  extends MultipleOutputFormat<Text, TiffImageWritable>{
+public class TiffImageOutputFormat  extends FileOutputFormat<Text, TiffImageWritable>{
 
-	/*
+
 	@Override
 	public RecordWriter<Text, TiffImageWritable> getRecordWriter(FileSystem fs, JobConf job,
 			String name, Progressable progress) throws IOException {
@@ -26,7 +25,8 @@ public class TiffImageOutputFormat  extends MultipleOutputFormat<Text, TiffImage
 		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(fileOut);
 	    return new TiffImageRecordWriter(ios);
 	}
-	*/
+
+	/*
 	@Override
 	protected RecordWriter<Text, TiffImageWritable> getBaseRecordWriter(FileSystem fs, JobConf job, String name, Progressable progress)
 			throws IOException {
@@ -42,5 +42,6 @@ public class TiffImageOutputFormat  extends MultipleOutputFormat<Text, TiffImage
 		return key.toString();
 		//return super.generateFileNameForKeyValue(key, value, name);
 	}
+	*/
 
 }

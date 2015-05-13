@@ -30,7 +30,8 @@ public class NoiseReductionMean {
 			System.err.println("Usage: " + appName + " <inputfolder> <outputfolder> <width overlap> <height overlap>");
 			System.exit(1);
 		}
-		SparkConf conf = new SparkConf().setAppName(appName).setMaster("local");
+		//.setMaster("local")
+		SparkConf conf = new SparkConf().setAppName(appName);
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		
 		String inputFolderPath = args[0];
