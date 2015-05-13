@@ -23,3 +23,20 @@ scp /home/oskar/workspace/BSc-Thesis/output/hdfs/0_0_s1a-iw1-slc-vh-20150501t160
 
 
 scp -r /home/oskar/workspace/BSc-Thesis/output/hdfs root@ec2-54-82-19-63.compute-1.amazonaws.com:input
+
+
+
+scp /home/oskar/thesis.jar root@ec2-54-82-19-63.compute-1.amazonaws.com:
+
+
+
+bin/hdfs dfs -put /home/oskar/workspace/BSc-Thesis/output/hdfs/0_0_s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff input/noisy.tiff
+
+
+
+
+scp -r ext/* ec2-54-83-253-2.compute-1.amazonaws.com:/usr/lib/jvm/java-1.7.0 openjdk-1.7.0.79.x86_64/jre/lib/ext
+ec2-54-158-111-166.compute-1.amazonaws.com
+ec2-54-83-139-43.compute-1.amazonaws.com
+ec2-54-227-223-229.compute-1.amazonaws.com
+

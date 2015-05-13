@@ -18,11 +18,11 @@ public class ChangeDetectionJava {
 		BufferedImage img2 = ImageIO.read(new File(path2));
 		BufferedImage img3 = ImageIO.read(new File(path3));
 
-		int w = Integer.min(img1.getWidth(), img3.getWidth());
-		int h = Integer.min(img1.getHeight(), img3.getHeight());
+		//int w = Integer.min(img1.getWidth(), img3.getWidth());
+		//int h = Integer.min(img1.getHeight(), img3.getHeight());
 
-		BufferedImage processedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-
+		//BufferedImage processedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+		/*
 		System.out.println(img1.getWidth() + " by " + img1.getHeight());
 		System.out.println(img2.getWidth() + " by " + img2.getHeight());
 		System.out.println(img3.getWidth() + " by " + img3.getHeight());
@@ -46,6 +46,6 @@ public class ChangeDetectionJava {
 		File outputFile = new File("/home/oskar/workspace/BSc-Thesis/output/COMBINED.png");
 
 		ImageIO.write(processedImg, "png", outputFile);
-
+		*/
 	}
 }

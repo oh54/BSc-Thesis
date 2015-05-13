@@ -44,6 +44,7 @@ public class TiffTestSpark {
 
 		// sc.hadoopFile(path, inputFormatClass, keyClass, valueClass);
 
+		/*
 		JavaPairRDD<String, PortableDataStream> input = sc.binaryFiles(inputFolder);
 		 JavaRDD<String> paths = input.map(tuple -> new String(tuple._1));
 
@@ -52,7 +53,7 @@ public class TiffTestSpark {
 			 return new Tuple2(new Text(t._1), new TiffImageWritable(ImageIO.read(t._2.open()))); 
 		 });
 		 
-		 
+		 */
 	
 		/*
 		 * JavaPairRDD<String, Integer> heights = imgs.mapToPair(t -> new
@@ -81,7 +82,7 @@ public class TiffTestSpark {
 		//imgs.saveAsHadoopFile(path, Text.class, ImageWritable.class, TiffImageOutputFormat.class);õ
 
 		
-		imgs.saveAsHadoopFile(path, key, value, TiffImageOutputFormat.class);
+		//imgs.saveAsHadoopFile(path, key, value, TiffImageOutputFormat.class);
 		
 		//imgs.saveAsNewAPIHadoopFile(path, Text.class, IntWritable.class,  SequenceFileOutputFormat.class);
 	
