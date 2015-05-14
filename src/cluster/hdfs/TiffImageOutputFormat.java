@@ -13,35 +13,18 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordWriter;
 import org.apache.hadoop.util.Progressable;
 
-
-public class TiffImageOutputFormat  extends FileOutputFormat<Text, TiffImageWritable>{
-
+public class TiffImageOutputFormat extends FileOutputFormat<Text, TiffImageWritable> {
 
 	@Override
-	public RecordWriter<Text, TiffImageWritable> getRecordWriter(FileSystem fs, JobConf job,
-			String name, Progressable progress) throws IOException {
+	public RecordWriter<Text, TiffImageWritable> getRecordWriter(FileSystem fs, JobConf job, String name, Progressable progress) throws IOException {
 		Path file = FileOutputFormat.getTaskOutputPath(job, name);
 		FSDataOutputStream fileOut = fs.create(file, progress);
 		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(fileOut);
-	    return new TiffImageRecordWriter(ios);
+		return new TiffImageRecordWriter(ios);
+
+
 	}
 
-	/*
-	@Override
-	protected RecordWriter<Text, TiffImageWritable> getBaseRecordWriter(FileSystem fs, JobConf job, String name, Progressable progress)
-			throws IOException {
-		Path file = FileOutputFormat.getTaskOutputPath(job, name);
-		FSDataOutputStream fileOut = fs.create(file, progress);
-		ImageOutputStream ios = javax.imageio.ImageIO.createImageOutputStream(fileOut);
-	    return new TiffImageRecordWriter(ios);
-	}
 
-	@Override
-	protected String generateFileNameForKeyValue(Text key, TiffImageWritable value, String name) {
-		// TODO Auto-generated method stub
-		return key.toString();
-		//return super.generateFileNameForKeyValue(key, value, name);
-	}
-	*/
 
 }

@@ -12,9 +12,10 @@ public class SplitTest {
 	public static void main(String[] args) throws IOException {
 		//String inputFolder = "/home/oskar/workspace/BSc-Thesis/input/sar";
 		//String fileName = inputFolder + "/sarpic.tif";
-		String fileName = "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
+		//String fileName = "/home/oskar/workspace/BSc-Thesis/input/S1A_IW_SLC__1SDV_20150501T160356_20150501T160424_005730_0075B6_8204.SAFE/measurement/s1a-iw1-slc-vh-20150501t160356-20150501t160424-005730-0075b6-001.tiff";
 		
-		
+		String fileName = args[0];
+
 		//File inputFile = new File(fileName);
 		//ImageInputStream stream = ImageIO.createImageInputStream(inputFile);
 		
@@ -26,7 +27,8 @@ public class SplitTest {
 
 		//System.out.println(n + " by " + m + " image");
 		
-		
+		System.out.println(n);
+		System.out.println(m);
 		
 		//System.out.println(tiffImg.getType());
 		
@@ -34,7 +36,7 @@ public class SplitTest {
 		
 
 		
-		writeSplits(tiffImg, 4, 4, "output/");
+		//writeSplits(tiffImg, 4, 4, "output/");
 
 	}
 
